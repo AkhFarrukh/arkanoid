@@ -234,6 +234,7 @@ should not need to edit it.
 --------------------------------------------------*/
 
 class Rectangle : public virtual Drawable {
+protected:
     Point center_;
     float         w_, h_;
     ALLEGRO_COLOR frameColor_, fillColor_;
@@ -281,6 +282,41 @@ bool Rectangle::contains(Point point) const {
 }
 
 Point Rectangle::getCenter() const { return center_; }
+
+
+/*--------------------------------------------------
+Racket class
+--------------------------------------------------*/
+
+
+
+class Racket : public virtual Rectangle{
+    const float movementSpeed = 5.0F;
+
+public:
+    Racket(Point center, float w, float h, ALLEGRO_COLOR frameColor,
+           ALLEGRO_COLOR fillColor);
+
+    void moveLeft();
+    void moveRight();
+    void draw() override;
+};
+
+Racket::Racket(Point center, float w, float h, ALLEGRO_COLOR frameColor,
+               ALLEGRO_COLOR fillColor) : Rectangle(center, w, h, frameColor,
+                                                    fillColor) {}
+
+void Racket::moveLeft() {
+    center_.x = center_.x - movementSpeed;
+}
+
+void Racket::moveRight() {
+  center_.x = center_.x + movementSpeed;
+}
+
+void Racket::draw() {
+  Rectangle::draw();
+}
 
 
 /*--------------------------------------------------
@@ -349,26 +385,25 @@ private:
     float horizontalSpeed = 4.5F;
     float verticalSpeed = 4.0F;
 
+    Racket* racket_ = nullptr; //needed a destructor or shared
+
 public:
     BouncyBall(Point center, float r, ALLEGRO_COLOR frameColor,
-            ALLEGRO_COLOR fillColor) noexcept;
+            ALLEGRO_COLOR fillColor, Racket * racket) noexcept;
 
     void draw() override;
 };
 
 BouncyBall::BouncyBall(Point center, float r, ALLEGRO_COLOR frameColor,
-                       ALLEGRO_COLOR fillColor) noexcept :
-                       Circle{center, r, frameColor, fillColor} {}
+                       ALLEGRO_COLOR fillColor, Racket *racket) noexcept :
+                       Circle{center, r, frameColor, fillColor},
+                       racket_{racket}
+                       {}
 
 void BouncyBall::draw() {
   Point center = getCenter();
 
-
-
-
-
   /*
-   *
   if (center.x + r_ > windowWidth or center.x - r_ < 0){
     horizontalSpeed = -horizontalSpeed;
   }
@@ -380,13 +415,23 @@ void BouncyBall::draw() {
   if (Circle::contains(Point{0, center.y})or Circle::contains(Point{windowWidth, center.y})){
     horizontalSpeed = -horizontalSpeed;
   }
-  if (Circle::contains(Point{center.x, 0})or Circle::contains(Point{center.x, windowHeight})){
+  if (Circle::contains(Point{center.x, 0})){
     verticalSpeed = -verticalSpeed;
   }
 
+  if (Circle::contains(Point{center.x, windowHeight})){
+    //todo change to fully submerge the ball under the screen
+    center.y = mid_y;
+  }
+
+  if(racket_->contains({center.x, center_.y + r_})){
+    verticalSpeed = -verticalSpeed;
+  }
+
+
+
   center.x = center.x + horizontalSpeed;
   center.y = center.y + verticalSpeed;
-
 
   setCenter(center);
   Circle::draw();
@@ -573,8 +618,9 @@ elsewhere it will probably crash.
 --------------------------------------------------*/
 
 class Canvas {
-    BouncyBall bouncyBall_ = BouncyBall(Point{mid_x,mid_y}, 25.0F, COLOR_BLACK, COLOR_RED);
 
+    Racket racket_ = Racket(Point{mid_x,mid_y+180}, 250.0F, 15.0F, COLOR_BLACK, COLOR_BLUE);
+    BouncyBall bouncyBall_ = BouncyBall(Point{mid_x,mid_y}, 10.0F, COLOR_BLACK, COLOR_RED, &racket_);
 public:
     Canvas() = default;
     void draw();
@@ -586,13 +632,26 @@ public:
 //Canvas::Canvas() = default;
 
 void Canvas::draw() {
+  racket_.draw();
   bouncyBall_.draw();
 }
 
 void Canvas::mouseClick(Point mouseLoc) {
 }
 
-bool Canvas::keyPressed(int /* keyCode */) { return false; }
+bool Canvas::keyPressed(int keyCode) {
+  switch (keyCode) {
+  case ALLEGRO_KEY_Q:
+      racket_.moveLeft();
+      break;
+    case ALLEGRO_KEY_D:
+      racket_.moveRight();
+      break;
+    default: {
+    }  // pass (normal)
+  }
+  return true;
+}
 // *****************DONT EDIT BELOW HERE************************
 
 void must_init(bool test, const char *description) {
@@ -642,6 +701,8 @@ int main(int /* argc */, char ** /* argv */) {
 
   bool          done = false;
   bool          draw = false;
+  bool keyPressed[ALLEGRO_KEY_MAX] = {false};
+
   ALLEGRO_EVENT event;
   Canvas        canvas;
 
@@ -651,7 +712,15 @@ int main(int /* argc */, char ** /* argv */) {
     while (al_get_next_event(queue, &event)) {
       switch (event.type) {
         case ALLEGRO_EVENT_KEY_DOWN:
-          canvas.keyPressed(event.keyboard.keycode);
+          //https://www.allegro.cc/forums/thread/612907
+          if (!keyPressed[event.keyboard.keycode]) {
+            //start = al_get_time ();
+            keyPressed[event.keyboard.keycode] = true;
+          }
+          //canvas.keyPressed(event.keyboard.keycode);
+          break;
+        case ALLEGRO_EVENT_KEY_UP:
+          keyPressed[event.keyboard.keycode] = false; // Mark the key as released
           break;
         case ALLEGRO_EVENT_MOUSE_AXES:
           // We try to never leave implicit casts in the code. By making the
@@ -682,6 +751,12 @@ int main(int /* argc */, char ** /* argv */) {
     }
     if (draw) {
       draw = false;
+      if (keyPressed[ALLEGRO_KEY_Q]) {
+        canvas.keyPressed(ALLEGRO_KEY_Q);
+      }
+      if (keyPressed[ALLEGRO_KEY_D]) {
+        canvas.keyPressed(ALLEGRO_KEY_D);
+      }
       al_start_timer(timer);
       al_clear_to_color(al_map_rgb(255, 255, 255));
       canvas.draw();
