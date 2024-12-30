@@ -364,8 +364,6 @@ void BouncyBall::draw() {
   Point center = getCenter();
 
 
-  center.x = center.x + horizontalSpeed;
-  center.y = center.y + verticalSpeed;
 
 
 
@@ -385,6 +383,9 @@ void BouncyBall::draw() {
   if (Circle::contains(Point{center.x, 0})or Circle::contains(Point{center.x, windowHeight})){
     verticalSpeed = -verticalSpeed;
   }
+
+  center.x = center.x + horizontalSpeed;
+  center.y = center.y + verticalSpeed;
 
 
   setCenter(center);
