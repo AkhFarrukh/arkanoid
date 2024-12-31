@@ -36,8 +36,10 @@ void BouncyBall::draw() {
     center.y = mid_y;
   }
 
-  if(racket_->contains({center.x, center_.y + r_})){
-    verticalSpeed = -verticalSpeed;
+  if(racket_->contains(Point{center.x, center_.y + r_})){
+    float angle = racket_->getAngle(Point{center.x, center_.y + r_});
+    horizontalSpeed = cos(angle) * speed;
+    verticalSpeed = -sin(angle) * speed;
   }
 
 

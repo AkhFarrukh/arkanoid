@@ -148,7 +148,7 @@ int main(int /* argc */, char ** /* argv */) {
     if (draw) {
       draw = false;
       if (keyPressed[ALLEGRO_KEY_Q]) {
-        canvas.keyPressed(ALLEGRO_KEY_Q);
+        canvas.keyPressed(ALLEGRO_KEY_Q);//todo regular integers
       }
       if (keyPressed[ALLEGRO_KEY_D]) {
         canvas.keyPressed(ALLEGRO_KEY_D);

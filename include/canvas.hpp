@@ -28,7 +28,7 @@ elsewhere it will probably crash.
 
 class Canvas {
 
-    Racket racket_ = Racket(Point{mid_x,mid_y+180}, 250.0F, 15.0F, COLOR_BLACK, COLOR_BLUE);
+    Racket racket_ = Racket(Point{mid_x,mid_y+180}, 100.0F, 15.0F, COLOR_BLACK, COLOR_BLUE);
     BouncyBall bouncyBall_ = BouncyBall(Point{mid_x,mid_y}, 10.0F, COLOR_BLACK, COLOR_RED, &racket_);
 public:
     Canvas() = default;
