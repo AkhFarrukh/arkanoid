@@ -1,7 +1,9 @@
 
+
 # CXXFLAGS is the Make variable which contains the options to give to the C++ compiler.
 
 # We always start by choosing a language. Here we are coding in pre-23 C++. If your compiler support -std=c++23, use it instead.
+CXXFLAGS += -Iinclude
 CXXFLAGS += -std=c++2b
 
 # Then we activate the minimum vital warnings, they are there to help us
@@ -18,6 +20,7 @@ CXXFLAGS += -Wno-unused-command-line-argument -Wno-unknown-warning-option
 
 # Then we add the flags pkg-config says to use
 CXXFLAGS += $(shell pkg-config allegro-5 allegro_primitives-5 allegro_font-5 --cflags | sed 's/-I/-isystem/g')
+
 
 # And that's it for the compiler flags.
 
@@ -38,16 +41,22 @@ LDLIBS += $(shell pkg-config allegro-5 allegro_primitives-5 allegro_font-5 alleg
 
 # CXX is the default C++ compiler
 
+SOURCEDIR = ./src
+SOURCES = $(shell find $(SOURCEDIR) -type f -name "*.cpp")
+
+TARGET = arkanoid
+
+
 # Recipes
 .PHONY: default # Attention: cette recette ne fabrique pas la cible (pas de fichier "default" créé)
-default: main# Par défaut, faire le
+default: all# Par défaut, faire le
 
 .PHONY: all
-all: main
+all: $(TARGET)
 
 # Recette magique (voir Makefile précédent)
-%: %.cpp
-	${CXX} ${CXXFLAGS} $< -o $@ ${LDLIBS}
+$(TARGET): $(SOURCES)
+	${CXX} ${CXXFLAGS} $(SOURCES) -o $@ ${LDLIBS}
 
 # make clean supprime les fichiers objets
 .PHONY: clean
@@ -57,4 +66,5 @@ clean:
 # make mrclean supprime les exécutables
 .PHONY: mrclean
 mrclean: clean
-	rm -f arkanoid
+	rm -f $(TARGET)
+
