@@ -5,6 +5,7 @@
 #ifndef ARKANOID_VIEW_HPP
 #define ARKANOID_VIEW_HPP
 
+#include "canvas.hpp"
 
 class view {
 

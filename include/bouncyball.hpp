@@ -6,7 +6,7 @@
 #define ARKANOID_BOUNCYBALL_HPP
 
 #include <cmath>
-
+#include <memory>
 
 #include "drawable.hpp"
 #include "point.hpp"
@@ -26,11 +26,11 @@ private:
     float horizontalSpeed = 0.0F * speed;
     float verticalSpeed = 1.0F * speed;
 
-    Racket* racket_ = nullptr; //needed a destructor or shared
+    shared_ptr<Racket> racket_; //needed a destructor or shared
 
 public:
     BouncyBall(Point center, float r, ALLEGRO_COLOR frameColor,
-               ALLEGRO_COLOR fillColor, Racket * racket) noexcept;
+               ALLEGRO_COLOR fillColor, shared_ptr<Racket> racket) noexcept;
 
     void draw() override;
 };

@@ -7,7 +7,7 @@
 
 
 BouncyBall::BouncyBall(Point center, float r, ALLEGRO_COLOR frameColor,
-                       ALLEGRO_COLOR fillColor, Racket *racket) noexcept :
+                       ALLEGRO_COLOR fillColor, shared_ptr<Racket> racket) noexcept :
         Circle{center, r, frameColor, fillColor},
         racket_{racket}
 {}

@@ -6,9 +6,12 @@
 #define ARKANOID_CANVAS_HPP
 
 #include <memory>
+#include <vector>
+
 #include "racket.hpp"
 #include "bouncyball.hpp"
 
+using namespace std;
 /*--------------------------------------------------
 Canvas class.
 
@@ -27,11 +30,11 @@ elsewhere it will probably crash.
 --------------------------------------------------*/
 
 class Canvas {
+    vector<shared_ptr<Drawable> > drawables {};
 
-    Racket racket_ = Racket(Point{mid_x,mid_y+180}, 100.0F, 15.0F, COLOR_BLACK, COLOR_BLUE);
-    BouncyBall bouncyBall_ = BouncyBall(Point{mid_x,mid_y}, 10.0F, COLOR_BLACK, COLOR_RED, &racket_);
+
 public:
-    Canvas() = default;
+    Canvas();
     void draw();
     void mouseClick(Point mouseLoc);
     void mouseMove(Point mouseMove){}
