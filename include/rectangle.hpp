@@ -28,7 +28,7 @@ It should have all the features you need and you
 should not need to edit it.
 --------------------------------------------------*/
 
-struct RectangleInfo{
+struct RectangleInfo : public virtual DrawableInfo{
     Point center;
     float         w, h;
     ModelColor frameColor, fillColor;

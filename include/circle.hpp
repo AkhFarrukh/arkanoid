@@ -5,14 +5,16 @@
 #ifndef ARKANOID_CIRCLE_HPP
 #define ARKANOID_CIRCLE_HPP
 
-
+#include <memory>
 
 #include "drawable.hpp"
 #include "point.hpp"
 #include "constants.hpp"
 #include "modelcolor.hpp"
 
-struct CircleInfo{
+using namespace std;
+
+struct CircleInfo : public virtual DrawableInfo{
     Point center;
     float         r;
     ModelColor frameColor, fillColor;
@@ -35,7 +37,7 @@ public:
     void update() override;
     [[nodiscard]] Point getCenter() const;
     void                setCenter(Point newCenter);
-    [[nodiscard]] CircleInfo getCircleInfo() const;
+    [[nodiscard]] shared_ptr<DrawableInfo> getCircleInfo() const;
 };
 
 #endif //ARKANOID_CIRCLE_HPP

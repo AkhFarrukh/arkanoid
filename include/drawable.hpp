@@ -5,10 +5,13 @@
 #ifndef ARKANOID_DRAWABLE_HPP
 #define ARKANOID_DRAWABLE_HPP
 
+#include <memory>
 #include "point.hpp"
 
-struct DrawableInfo{
+using namespace std;
 
+struct DrawableInfo{
+  virtual ~DrawableInfo() = default;
 };
 
 /*--------------------------------------------------
@@ -26,6 +29,7 @@ public:
     virtual bool contains(Point p) const = 0;
     virtual void update()                 = 0;
     virtual ~Drawable()                 = default;
+    virtual  shared_ptr<DrawableInfo> getInfo() =0;
 };
 
 #endif //ARKANOID_DRAWABLE_HPP
