@@ -14,10 +14,6 @@ IntRectangle
 --------------------------------------------------*/
 class IntRectangle : public TextRectangle, public Subject {
     int  theInteger = 0;
-    void update() {
-      setString(to_string(theInteger));
-      notifyObservers();
-    }
 
 protected:
     IntRectangle(const IntRectangle &)            = default;
@@ -28,13 +24,11 @@ protected:
 public:
     IntRectangle(Point center, float w, float h, int theInteger)
             : TextRectangle{center, w, h, ""}, theInteger{theInteger} {
-      update();
     }
     operator int() const { return theInteger; }
     int  getInteger() const { return theInteger; }
     void setInteger(int newInteger) {
       theInteger = newInteger;
-      update();
     }
     ~IntRectangle() override = default;
 };

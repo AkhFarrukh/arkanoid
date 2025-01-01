@@ -46,7 +46,6 @@ public:
               ModelColor frameColor = FRAME_COLOR,
               ModelColor fillColor  = DEFAULT_COLOR) noexcept;
 
-    virtual void                update()  =0;
     void                setFillColor(ModelColor newFillColor);
     void                setFrameColor(ModelColor newFrameColor);
     [[nodiscard]] bool  contains(Point point) const override;

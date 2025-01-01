@@ -34,7 +34,7 @@ public:
 
     void makeMove();
 
-    void update() override;
+    void update() ;
 };
 
 #endif //ARKANOID_BOUNCYBALL_HPP

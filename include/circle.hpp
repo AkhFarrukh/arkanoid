@@ -32,7 +32,7 @@ public:
     void                setFillColor(ModelColor newFillColor);
     void                setFrameColor(ModelColor newFrameColor);
     [[nodiscard]] bool  contains(Point point) const override;
-    void update() override;
+
     [[nodiscard]] Point getCenter() const;
     void                setCenter(Point newCenter);
     [[nodiscard]] CircleInfo getCircleInfo() const;

@@ -5,8 +5,8 @@
 #include "racket.hpp"
 
 Racket::Racket(Point center, float w, float h, ModelColor frameColor,
-               ModelColor fillColor) : Rectangle(center, w, h, frameColor,
-                                                    fillColor) {}
+               ModelColor fillColor) :
+               Rectangle(center, w, h, frameColor,fillColor) {}
 
 void Racket::moveLeft() {
   center_.x = center_.x - movementSpeed;
@@ -28,6 +28,3 @@ float Racket::getAngle(Point collisionPoint) {
   return alpha;
 }
 
-void Racket::update() {
-  Rectangle::update();
-}

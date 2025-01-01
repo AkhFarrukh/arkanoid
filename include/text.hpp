@@ -40,9 +40,6 @@ public:
     Text(string text, Point center, ALLEGRO_COLOR color = COLOR_BLACK)
             : s_{text}, center_{center}, color_{color} {}
 
-    // Draw
-    void update() override;
-
     // Setters and getters
     string getString() { return s_; }
     void   setString(const string &newString) { s_ = newString; }

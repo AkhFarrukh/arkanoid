@@ -24,7 +24,7 @@ protected:
 
 public:
     virtual bool contains(Point p) const = 0;
-    virtual void update()                 = 0;
+
     virtual ~Drawable()                 = default;
 };
 

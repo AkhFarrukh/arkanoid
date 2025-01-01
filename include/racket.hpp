@@ -24,7 +24,6 @@ class Racket : public virtual Rectangle{
 public:
     Racket(Point center, float w, float h, ModelColor frameColor,
            ModelColor fillColor);
-    void update() override;
 
     void moveLeft();
     void moveRight();
