@@ -27,9 +27,9 @@ protected:
 public:
     TextRectangle(Point center, float w, float h, string text)
             : Text{std::move(text), center}, Rectangle{center, w, h} {}
-    void draw() override {
-      Rectangle::draw();
-      Text::draw();
+    void update() override {
+      Rectangle::update();
+      Text::update();
     }
     bool contains(Point p) const override { return Rectangle::contains(p); }
     ~TextRectangle() override = default;

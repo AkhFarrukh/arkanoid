@@ -24,7 +24,7 @@ Text("Hello!", {250, 250}).draw();
 
 will create a text temporary instance with the
 string "Hello!" centered at 250, 250 and will
-call draw on the temporary.
+call update on the temporary.
 
 It should have all the features you need and you
 should not need to edit it.
@@ -41,7 +41,7 @@ public:
             : s_{text}, center_{center}, color_{color} {}
 
     // Draw
-    void draw() override;
+    void update() override;
 
     // Setters and getters
     string getString() { return s_; }

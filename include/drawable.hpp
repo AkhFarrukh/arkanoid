@@ -6,6 +6,11 @@
 #define ARKANOID_DRAWABLE_HPP
 
 #include "point.hpp"
+
+struct DrawableInfo{
+
+};
+
 /*--------------------------------------------------
 Drawable class.
 --------------------------------------------------*/
@@ -19,7 +24,7 @@ protected:
 
 public:
     virtual bool contains(Point p) const = 0;
-    virtual void draw()                 = 0;
+    virtual void update()                 = 0;
     virtual ~Drawable()                 = default;
 };
 

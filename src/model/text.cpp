@@ -6,7 +6,7 @@
 #include "text.hpp"
 
 
-void Text::draw() {
+void Text::update() {
   auto verticalCenterAdjustment =
           static_cast<float>(al_get_font_line_height(font) / 2.0);
   al_draw_text(font, color_, center_.x, center_.y - verticalCenterAdjustment,

@@ -6,18 +6,18 @@
 
 Canvas::Canvas(){
   drawables.push_back(
-          make_shared<Racket>(Point{mid_x,mid_y+180}, 10.0F, 15.0F, FRAME_COLOR, RACKET_COLOR)
+          make_shared<Racket>(Point{mid_x,mid_y+180}, 150.0F, 15.0F, FRAME_COLOR, RACKET_COLOR)
           );
   shared_ptr<Racket> racket = dynamic_pointer_cast<Racket>(drawables[0]);
   drawables.push_back(
-          make_shared<BouncyBall>(Point{mid_x,mid_y}, 100.0F, FRAME_COLOR, BALL_COLOR, racket)
+          make_shared<BouncyBall>(Point{mid_x,mid_y}, 10.0F, FRAME_COLOR, BALL_COLOR, racket)
           );
 
 }
 
 void Canvas::update() {
   shared_ptr<BouncyBall> ball = dynamic_pointer_cast<BouncyBall>(drawables[1]);
-  ball->draw();
+  ball->update();
 }
 
 const vector<shared_ptr<Drawable>>& Canvas::getVectorOfDrawables() const{

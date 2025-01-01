@@ -40,7 +40,7 @@ CircleInfo Circle::getCircleInfo() const {
   return CircleInfo{center_,r_,frameColor_, fillColor_};
 }
 
-void Circle::draw() {
+void Circle::update() {
 
 }
 

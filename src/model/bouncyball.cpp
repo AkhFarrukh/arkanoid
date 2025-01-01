@@ -14,7 +14,7 @@ BouncyBall::BouncyBall(Point center, float r, ModelColor frameColor,
         racket_{racket}
 {}
 
-void BouncyBall::draw() {
+void BouncyBall::update() {
   Point center = getCenter();
 
   /*

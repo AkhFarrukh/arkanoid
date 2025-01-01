@@ -27,7 +27,7 @@ mouseClick whenever the mouse is clicked
 keyPressed whenever a key is pressed
 
 Any drawing code should be called ONLY in draw
-or methods called by draw. If you try to draw
+or methods called by draw. If you try to update
 elsewhere it will probably crash.
 --------------------------------------------------*/
 

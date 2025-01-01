@@ -28,6 +28,6 @@ float Racket::getAngle(Point collisionPoint) {
   return alpha;
 }
 
-void Racket::draw() {
-  Rectangle::draw();
+void Racket::update() {
+  Rectangle::update();
 }
