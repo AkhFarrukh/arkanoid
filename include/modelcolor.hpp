@@ -1,0 +1,18 @@
+//
+// Created by farrukh on 1/01/25.
+//
+
+#ifndef ARKANOID_MODELCOLOR_HPP
+#define ARKANOID_MODELCOLOR_HPP
+
+enum ModelColor{
+    DEFAULT_COLOR,
+    FRAME_COLOR,
+    BALL_COLOR,
+    RACKET_COLOR,
+    BRICK_COLOR,
+    BACKGROUND_COLOR,
+
+};
+
+#endif //ARKANOID_MODELCOLOR_HPP

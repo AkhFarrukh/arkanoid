@@ -33,15 +33,7 @@ const float  mid_x            = static_cast<float>(windowWidth) / 2.0F;
 const float  mid_y            = static_cast<float>(windowHeight) / 2.0F;
 const double refreshPerSecond = 60;
 
-const ALLEGRO_COLOR COLOR_RED     = al_map_rgb(255, 0, 0);
-const ALLEGRO_COLOR COLOR_GREY    = al_map_rgb(200, 200, 200);
-const ALLEGRO_COLOR COLOR_GREEN   = al_map_rgb(0, 255, 0);
-const ALLEGRO_COLOR COLOR_YELLOW  = al_map_rgb(255, 255, 0);
-const ALLEGRO_COLOR COLOR_BLACK   = al_map_rgb(0, 0, 0);
-const ALLEGRO_COLOR COLOR_WHITE   = al_map_rgb(255, 255, 255);
-const ALLEGRO_COLOR COLOR_PINK    = al_map_rgb(200, 150, 167);
-const ALLEGRO_COLOR COLOR_MAGENTA = al_map_rgb(255, 0, 255);
-const ALLEGRO_COLOR COLOR_BLUE    = al_map_rgb(0, 0, 255);
+
 
 // Global that contains font size and the font itself
 const int     FONT_SIZE = 20;

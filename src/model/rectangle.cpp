@@ -5,8 +5,8 @@
 #include "rectangle.hpp"
 
 
-Rectangle::Rectangle(Point center, float w, float h, ALLEGRO_COLOR frameColor,
-                     ALLEGRO_COLOR fillColor) noexcept
+Rectangle::Rectangle(Point center, float w, float h, ModelColor frameColor,
+                     ModelColor fillColor) noexcept
         : Drawable {},
           center_{center},
           w_{w},
@@ -14,20 +14,12 @@ Rectangle::Rectangle(Point center, float w, float h, ALLEGRO_COLOR frameColor,
           frameColor_{frameColor},
           fillColor_{fillColor} {}
 
-void Rectangle::draw() {
-  const float x1 = center_.x - w_ / 2;
-  const float x2 = center_.x + w_ / 2;
-  const float y1 = center_.y - h_ / 2;
-  const float y2 = center_.y + h_ / 2;
-  al_draw_filled_rectangle(x1, y1, x2, y2, fillColor_);
-  al_draw_rectangle(x1, y1, x2, y2, frameColor_, 1);
-}
 
-void Rectangle::setFillColor(ALLEGRO_COLOR fillColor) {
+void Rectangle::setFillColor(ModelColor fillColor) {
   fillColor_ = fillColor;
 }
 
-void Rectangle::setFrameColor(ALLEGRO_COLOR frameColor) {
+void Rectangle::setFrameColor(ModelColor frameColor) {
   frameColor_ = frameColor;
 }
 
@@ -37,3 +29,11 @@ bool Rectangle::contains(Point point) const {
 }
 
 Point Rectangle::getCenter() const { return center_; }
+
+RectangleInfo Rectangle::getRectangleInfo() const{
+  return RectangleInfo{center_,w_,h_, frameColor_, fillColor_};
+}
+
+void Rectangle::draw() {
+
+}

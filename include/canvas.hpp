@@ -8,8 +8,10 @@
 #include <memory>
 #include <vector>
 
+#include "drawable.hpp"
 #include "racket.hpp"
 #include "bouncyball.hpp"
+#include "modelcolor.hpp"
 
 using namespace std;
 /*--------------------------------------------------
@@ -35,10 +37,12 @@ class Canvas {
 
 public:
     Canvas();
-    void draw();
+    void update();
     void mouseClick(Point mouseLoc);
     void mouseMove(Point mouseMove){}
     bool keyPressed(int keyCode);  // return True if the event was handled
+
+    [[nodiscard]] const vector<shared_ptr<Drawable>>& getVectorOfDrawables() const;
 };
 
 #endif //ARKANOID_CANVAS_HPP

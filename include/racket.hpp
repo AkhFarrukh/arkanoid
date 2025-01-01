@@ -22,12 +22,12 @@ class Racket : public virtual Rectangle{
     const float movementSpeed = 8.0F;
 
 public:
-    Racket(Point center, float w, float h, ALLEGRO_COLOR frameColor,
-           ALLEGRO_COLOR fillColor);
+    Racket(Point center, float w, float h, ModelColor frameColor,
+           ModelColor fillColor);
+    void draw() override;
 
     void moveLeft();
     void moveRight();
-    void draw() override;
     float getAngle(Point collisionPoint);
 };
 

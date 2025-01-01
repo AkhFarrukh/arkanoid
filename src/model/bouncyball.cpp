@@ -4,10 +4,12 @@
 
 #include "bouncyball.hpp"
 
+#include <utility>
 
 
-BouncyBall::BouncyBall(Point center, float r, ALLEGRO_COLOR frameColor,
-                       ALLEGRO_COLOR fillColor, shared_ptr<Racket> racket) noexcept :
+
+BouncyBall::BouncyBall(Point center, float r, ModelColor frameColor,
+                       ModelColor fillColor, shared_ptr<Racket> racket) noexcept :
         Circle{center, r, frameColor, fillColor},
         racket_{racket}
 {}
@@ -48,5 +50,4 @@ void BouncyBall::draw() {
   center.y = center.y + verticalSpeed;
 
   setCenter(center);
-  Circle::draw();
 }

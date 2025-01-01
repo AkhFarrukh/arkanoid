@@ -4,8 +4,8 @@
 
 #include "racket.hpp"
 
-Racket::Racket(Point center, float w, float h, ALLEGRO_COLOR frameColor,
-               ALLEGRO_COLOR fillColor) : Rectangle(center, w, h, frameColor,
+Racket::Racket(Point center, float w, float h, ModelColor frameColor,
+               ModelColor fillColor) : Rectangle(center, w, h, frameColor,
                                                     fillColor) {}
 
 void Racket::moveLeft() {
@@ -16,9 +16,7 @@ void Racket::moveRight() {
   center_.x = center_.x + movementSpeed;
 }
 
-void Racket::draw() {
-  Rectangle::draw();
-}
+
 
 float Racket::getAngle(Point collisionPoint) {
   float leftEdgeX = center_.x - w_/2.0F;
@@ -28,4 +26,8 @@ float Racket::getAngle(Point collisionPoint) {
   alpha = alpha * PI / 180.0F;
 
   return alpha;
+}
+
+void Racket::draw() {
+  Rectangle::draw();
 }

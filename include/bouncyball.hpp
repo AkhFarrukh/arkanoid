@@ -22,15 +22,17 @@ class BouncyBall : public virtual Circle{
      * https://www.youtube.com/watch?v=lpvH6MStSis&list=PLgLT8uqXESN84XNkhn7MT-HIi-BYzFWqZ&index=44
      */
 private:
-    const float speed = 8.0F ;
+    const float speed = 3.0F ;
     float horizontalSpeed = 0.0F * speed;
     float verticalSpeed = 1.0F * speed;
 
     shared_ptr<Racket> racket_; //needed a destructor or shared
 
 public:
-    BouncyBall(Point center, float r, ALLEGRO_COLOR frameColor,
-               ALLEGRO_COLOR fillColor, shared_ptr<Racket> racket) noexcept;
+    BouncyBall(Point center, float r, ModelColor frameColor,
+               ModelColor fillColor, shared_ptr<Racket> racket) noexcept;
+
+    void makeMove();
 
     void draw() override;
 };

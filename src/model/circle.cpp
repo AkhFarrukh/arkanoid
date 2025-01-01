@@ -14,18 +14,15 @@ It should have all the features you need and you
 should not need to edit it.
 --------------------------------------------------*/
 
-Circle::Circle(Point center, float r, ALLEGRO_COLOR frameColor,
-               ALLEGRO_COLOR fillColor) noexcept
+Circle::Circle(Point center, float r, ModelColor frameColor,
+               ModelColor fillColor) noexcept
         : center_{center}, r_{r}, frameColor_{frameColor}, fillColor_{fillColor} {}
 
-void Circle::draw() {
-  al_draw_filled_circle(center_.x, center_.y, r_, fillColor_);
-  al_draw_circle(center_.x, center_.y, r_, frameColor_, 1);
-}
 
-void Circle::setFillColor(ALLEGRO_COLOR fillColor) { fillColor_ = fillColor; }
 
-void Circle::setFrameColor(ALLEGRO_COLOR frameColor) {
+void Circle::setFillColor(ModelColor fillColor) { fillColor_ = fillColor; }
+
+void Circle::setFrameColor(ModelColor frameColor) {
   frameColor_ = frameColor;
 }
 
@@ -38,4 +35,12 @@ bool Circle::contains(Point p) const {
 }
 
 void Circle::setCenter(Point newCenter) { center_ = newCenter; }
+
+CircleInfo Circle::getCircleInfo() const {
+  return CircleInfo{center_,r_,frameColor_, fillColor_};
+}
+
+void Circle::draw() {
+
+}
 

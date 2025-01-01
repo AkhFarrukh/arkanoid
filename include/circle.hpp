@@ -10,24 +10,32 @@
 #include "drawable.hpp"
 #include "point.hpp"
 #include "constants.hpp"
+#include "modelcolor.hpp"
+
+struct CircleInfo{
+    Point center;
+    float         r;
+    ModelColor frameColor, fillColor;
+};
 
 
 class Circle : public virtual Drawable {
 protected:
     Point         center_;
     float         r_;
-    ALLEGRO_COLOR frameColor_, fillColor_;
+    ModelColor frameColor_, fillColor_;
 
 public:
-    Circle(Point center, float r, ALLEGRO_COLOR frameColor = COLOR_BLACK,
-           ALLEGRO_COLOR fillColor = COLOR_WHITE) noexcept;
-    void                draw() override;
-    void                setFillColor(ALLEGRO_COLOR newFillColor);
-    void                setFrameColor(ALLEGRO_COLOR newFrameColor);
+
+    Circle(Point center, float r, ModelColor frameColor = FRAME_COLOR,
+           ModelColor fillColor = DEFAULT_COLOR) noexcept;
+    void                setFillColor(ModelColor newFillColor);
+    void                setFrameColor(ModelColor newFrameColor);
     [[nodiscard]] bool  contains(Point point) const override;
+    void draw() override;
     [[nodiscard]] Point getCenter() const;
     void                setCenter(Point newCenter);
-
+    [[nodiscard]] CircleInfo getCircleInfo() const;
 };
 
 #endif //ARKANOID_CIRCLE_HPP

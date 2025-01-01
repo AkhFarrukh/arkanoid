@@ -9,6 +9,7 @@
 #include "drawable.hpp"
 #include "point.hpp"
 #include "constants.hpp"
+#include "modelcolor.hpp"
 
 using namespace std;
 /*--------------------------------------------------
@@ -27,20 +28,30 @@ It should have all the features you need and you
 should not need to edit it.
 --------------------------------------------------*/
 
+struct RectangleInfo{
+    Point center;
+    float         w, h;
+    ModelColor frameColor, fillColor;
+};
+
 class Rectangle : public virtual Drawable {
 protected:
     Point center_;
     float         w_, h_;
-    ALLEGRO_COLOR frameColor_, fillColor_;
+    ModelColor frameColor_, fillColor_;
 
 public:
+
     Rectangle(Point center, float w, float h,
-              ALLEGRO_COLOR frameColor = COLOR_BLACK,
-              ALLEGRO_COLOR fillColor  = COLOR_WHITE) noexcept;
+              ModelColor frameColor = FRAME_COLOR,
+              ModelColor fillColor  = DEFAULT_COLOR) noexcept;
+
     void                draw() override;
-    void                setFillColor(ALLEGRO_COLOR newFillColor);
-    void                setFrameColor(ALLEGRO_COLOR newFrameColor);
+    void                setFillColor(ModelColor newFillColor);
+    void                setFrameColor(ModelColor newFrameColor);
     [[nodiscard]] bool  contains(Point point) const override;
     [[nodiscard]] Point getCenter() const;
+
+    [[nodiscard]] RectangleInfo getRectangleInfo() const;
 };
 #endif //ARKANOID_RECTANGLE_HPP

@@ -12,6 +12,8 @@
 #include "point.hpp"
 #include "constants.hpp"
 
+#include "view.hpp" //todo del
+
 using namespace std;
 /*--------------------------------------------------
 Text class.

@@ -43,6 +43,7 @@
 #include "textrectangle.hpp"
 #include "intrectangle.hpp"
 #include "canvas.hpp"
+#include "view.hpp"
 
 using namespace std;
 
@@ -102,6 +103,8 @@ int main(int /* argc */, char ** /* argv */) {
   ALLEGRO_EVENT event;
   Canvas        canvas;
 
+  View view{canvas};
+
   al_start_timer(timer);
   while (!done) {
     al_wait_for_event(queue, nullptr);
@@ -155,7 +158,7 @@ int main(int /* argc */, char ** /* argv */) {
       }
       al_start_timer(timer);
       al_clear_to_color(al_map_rgb(255, 255, 255));
-      canvas.draw();
+      view.draw();
       al_flip_display();
     }
   }
