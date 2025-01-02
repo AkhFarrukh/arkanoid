@@ -6,14 +6,15 @@
 
 Racket::Racket(Point center, float w, float h, ModelColor frameColor,
                ModelColor fillColor) :
-               Rectangle(center, w, h, frameColor,fillColor) {}
+        CollidableRectangle(center, w, h, frameColor,fillColor),
+        tempCenter{center}{}
 
 void Racket::moveLeft() {
-  center_.x = center_.x - movementSpeed;
+  tempCenter.x = center_.x - movementSpeed;
 }
 
 void Racket::moveRight() {
-  center_.x = center_.x + movementSpeed;
+  tempCenter.x = center_.x + movementSpeed;
 }
 
 
@@ -26,5 +27,9 @@ float Racket::getAngle(Point collisionPoint) {
   alpha = alpha * PI / 180.0F;
 
   return alpha;
+}
+
+void Racket::update() {
+  center_ = tempCenter;
 }
 

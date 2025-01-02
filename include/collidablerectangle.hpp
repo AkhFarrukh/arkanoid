@@ -22,17 +22,21 @@ enum CollisionType{
 /*------------------------------------------------------------------------
  * https://www.jeffreythompson.org/collision-detection/circle-rect.php
  ------------------------------------------------------------------------*/
-class CollidableRectangle : public virtual Rectangle{
+class CollidableRectangle : public Rectangle{
 private:
 
     bool checkCollisionCircleLine(
-            Point p1, Point p2, Point centerCircle, float r, float len);
+            Point l1, Point l2, Point centerCircle, float r, float len);
+    float getDistance(Point p1, Point p2);
+    bool isPointOnLine(Point l1, Point l2, Point p, float len);
+
 public:
     CollidableRectangle(Point center, float w, float h,
             ModelColor frameColor,
             ModelColor fillColor);
 
-    bool isCollidingWithCircle(Point centerCircle, float r);
+
+    bool isCollidingWithCircle(Point centerCircle, float r) ;
 
     CollisionType getCollidingEdgeType(Point center, float r);
 

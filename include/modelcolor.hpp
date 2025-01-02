@@ -12,6 +12,7 @@ enum ModelColor{
     RACKET_COLOR,
     BRICK_COLOR,
     BACKGROUND_COLOR,
+    PLAYFIELD_COLOR,
 
 };
 

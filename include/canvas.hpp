@@ -7,11 +7,16 @@
 
 #include <memory>
 #include <vector>
+#include <ranges>
 
 #include "drawable.hpp"
 #include "racket.hpp"
 #include "bouncyball.hpp"
 #include "modelcolor.hpp"
+#include "collidablerectangle.hpp"
+#include "brick.hpp"
+#include "playfield.hpp"
+
 
 using namespace std;
 /*--------------------------------------------------
@@ -33,6 +38,7 @@ elsewhere it will probably crash.
 
 class Canvas {
     vector<shared_ptr<Drawable> > drawables {};
+    vector<shared_ptr<CollidableRectangle> > collidables {};
 
 
 public:

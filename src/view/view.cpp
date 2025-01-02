@@ -22,8 +22,8 @@ ALLEGRO_COLOR View::pickColorFromPalette(const ModelColor modelColor){
       return COLOR_BLUE;
     case BRICK_COLOR:
       return COLOR_WHITE;
-    case BACKGROUND_COLOR:
-      return COLOR_WHITE;
+    case PLAYFIELD_COLOR:
+      return COLOR_GREY;
     default:
       return COLOR_MAGENTA;
   }
