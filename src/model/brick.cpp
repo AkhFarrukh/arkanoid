@@ -14,10 +14,11 @@ bool Brick::isBroken(){
 }
 
 void Brick::brakeBrick() {
-  broken = false;
+  broken = true;
 }
 
 bool Brick::isCollidingWithCircle(Point centerCircle, float r) {
+
   if(!isBroken()){
     bool collision = CollidableRectangle::isCollidingWithCircle(centerCircle, r);
     if(collision){

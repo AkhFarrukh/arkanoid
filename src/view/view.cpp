@@ -34,20 +34,40 @@ void View::draw(){
   for(const auto& drawable : drawables_){
     shared_ptr<Rectangle> rectangle = dynamic_pointer_cast<Rectangle>(drawable);
     if(rectangle){
-      const RectangleInfo info = rectangle->getRectangleInfo();
-      const Point center = info.center;
-      const float w = info.w;
-      const float h = info.h;
+      shared_ptr<Brick> brick = dynamic_pointer_cast<Brick>(rectangle);
+      if(brick){
+        if(!brick->isBroken()){
+          const RectangleInfo info = rectangle->getRectangleInfo();
+          const Point center = info.center;
+          const float w = info.w;
+          const float h = info.h;
 
-      ALLEGRO_COLOR frameColor = pickColorFromPalette(info.frameColor);
-      ALLEGRO_COLOR fillColor = pickColorFromPalette(info.fillColor);
+          ALLEGRO_COLOR frameColor = pickColorFromPalette(info.frameColor);
+          ALLEGRO_COLOR fillColor = pickColorFromPalette(info.fillColor);
 
-      const float x1 = center.x - w / 2;
-      const float x2 = center.x + w / 2;
-      const float y1 = center.y - h / 2;
-      const float y2 = center.y + h / 2;
-      al_draw_filled_rectangle(x1, y1, x2, y2, fillColor);
-      al_draw_rectangle(x1, y1, x2, y2, frameColor, 1);
+          const float x1 = center.x - w / 2;
+          const float x2 = center.x + w / 2;
+          const float y1 = center.y - h / 2;
+          const float y2 = center.y + h / 2;
+          al_draw_filled_rectangle(x1, y1, x2, y2, fillColor);
+          al_draw_rectangle(x1, y1, x2, y2, frameColor, 1);
+        }
+      } else {
+        const RectangleInfo info = rectangle->getRectangleInfo();
+        const Point center = info.center;
+        const float w = info.w;
+        const float h = info.h;
+
+        ALLEGRO_COLOR frameColor = pickColorFromPalette(info.frameColor);
+        ALLEGRO_COLOR fillColor = pickColorFromPalette(info.fillColor);
+
+        const float x1 = center.x - w / 2;
+        const float x2 = center.x + w / 2;
+        const float y1 = center.y - h / 2;
+        const float y2 = center.y + h / 2;
+        al_draw_filled_rectangle(x1, y1, x2, y2, fillColor);
+        al_draw_rectangle(x1, y1, x2, y2, frameColor, 1);
+      }
     }
     shared_ptr<Circle> circle = dynamic_pointer_cast<Circle>(drawable);
     if(circle) {

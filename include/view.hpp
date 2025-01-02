@@ -8,6 +8,7 @@
 #include "canvas.hpp"
 #include "drawable.hpp"
 #include "modelcolor.hpp"
+#include "brick.hpp"
 
 const ALLEGRO_COLOR COLOR_RED     = al_map_rgb(255, 0, 0);
 const ALLEGRO_COLOR COLOR_GREY    = al_map_rgb(200, 200, 200);

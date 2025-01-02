@@ -36,7 +36,7 @@ public:
             ModelColor fillColor);
 
 
-    bool isCollidingWithCircle(Point centerCircle, float r) ;
+    virtual bool isCollidingWithCircle(Point centerCircle, float r) ;
 
     CollisionType getCollidingEdgeType(Point center, float r);
 

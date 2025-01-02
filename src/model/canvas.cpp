@@ -22,7 +22,7 @@ Canvas::Canvas(){
 
 
 
-  shared_ptr<PlayField> playField = make_shared<PlayField>(
+  shared_ptr<CollidableRectangle> playField = make_shared<CollidableRectangle>(
           Point{mid_x,mid_y}, playFieldWidth, playFieldHeight,
           FRAME_COLOR, PLAYFIELD_COLOR);
 
@@ -54,7 +54,7 @@ Canvas::Canvas(){
   }
   //shared_ptr<Racket> racket = dynamic_pointer_cast<Racket>(drawables[0]);
   shared_ptr<BouncyBall> ball =make_shared<BouncyBall>(
-          Point{mid_x,mid_y}, 5.0F, FRAME_COLOR, BALL_COLOR, collidables);
+          Point{mid_x+10,mid_y}, 5.0F, FRAME_COLOR, BALL_COLOR, collidables);
   drawables.push_back(ball);
 }
 

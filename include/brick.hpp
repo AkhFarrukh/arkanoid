@@ -5,6 +5,8 @@
 #ifndef ARKANOID_BRICK_HPP
 #define ARKANOID_BRICK_HPP
 
+#include <iostream>
+
 #include "drawable.hpp"
 #include "point.hpp"
 #include "constants.hpp"
