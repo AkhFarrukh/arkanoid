@@ -21,7 +21,7 @@ bool CollidableRectangle::isPointOnLine(Point l1, Point l2, Point p, float len) 
   float distance1 = getDistance(p,l1);
   float distance2 = getDistance(p,l2);
 
-  float bufferCollisionPrecision = 0.01; //todo make global
+  float bufferCollisionPrecision = 0.001; //todo make global
   if(distance1 + distance2 >= len-bufferCollisionPrecision and
      distance1 + distance2 <= len+bufferCollisionPrecision){
     return true;

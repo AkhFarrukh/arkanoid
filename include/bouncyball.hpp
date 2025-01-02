@@ -26,7 +26,7 @@ class BouncyBall : public virtual Circle{
      * https://www.youtube.com/watch?v=lpvH6MStSis&list=PLgLT8uqXESN84XNkhn7MT-HIi-BYzFWqZ&index=44
      */
 private:
-    const float speed = 8.0F ;
+    const float speed = 5.0F ;
     float horizontalSpeed = 0.0F * speed;
     float verticalSpeed = 1.0F * speed;
 
@@ -36,9 +36,20 @@ public:
     BouncyBall(Point center, float r, ModelColor frameColor, ModelColor fillColor,
                vector<shared_ptr<CollidableRectangle>>& collidables) noexcept;
 
-    void makeMove();
-
     void update() ;
+
+    void collideWithEdge(shared_ptr<CollidableRectangle> collidable, Point center);
+
+    void inverseXSpeed();
+
+    void inverseYSpeed();
+
+    void changeSpeedBasedOnRacketAngle(shared_ptr<Racket> racket, Point center);
+
+    void defaultCollide(CollisionType edge);
+
+    void
+    racketCollide(CollisionType edge, shared_ptr<Racket> racket, Point center);
 };
 
 #endif //ARKANOID_BOUNCYBALL_HPP

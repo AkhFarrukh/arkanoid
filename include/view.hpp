@@ -28,6 +28,10 @@ class View {
 public:
   View(Canvas& canvas);
   void draw();
+
+    void draw(shared_ptr<Rectangle> rectangle);
+
+    void draw(shared_ptr<Circle> circle);
 };
 
 

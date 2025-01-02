@@ -29,6 +29,36 @@ ALLEGRO_COLOR View::pickColorFromPalette(const ModelColor modelColor){
   }
 }
 
+
+void View::draw(shared_ptr<Rectangle>rectangle){
+  const RectangleInfo info = rectangle->getRectangleInfo();
+  const Point center = info.center;
+  const float w = info.w;
+  const float h = info.h;
+
+  ALLEGRO_COLOR frameColor = pickColorFromPalette(info.frameColor);
+  ALLEGRO_COLOR fillColor = pickColorFromPalette(info.fillColor);
+
+  const float x1 = center.x - w / 2;
+  const float x2 = center.x + w / 2;
+  const float y1 = center.y - h / 2;
+  const float y2 = center.y + h / 2;
+  al_draw_filled_rectangle(x1, y1, x2, y2, fillColor);
+  al_draw_rectangle(x1, y1, x2, y2, frameColor, 1);
+}
+
+void View::draw(shared_ptr<Circle> circle){
+  const CircleInfo info = circle->getCircleInfo();
+  const Point center = info.center;
+  const float r = info.r;
+
+  ALLEGRO_COLOR frameColor = pickColorFromPalette(info.frameColor);
+  ALLEGRO_COLOR fillColor = pickColorFromPalette(info.fillColor);
+
+  al_draw_filled_circle(center.x, center.y, r, fillColor);
+  al_draw_circle(center.x, center.y, r, frameColor, 1);
+}
+
 void View::draw(){
   canvas_.update();//todo
   for(const auto& drawable : drawables_){
@@ -37,49 +67,15 @@ void View::draw(){
       shared_ptr<Brick> brick = dynamic_pointer_cast<Brick>(rectangle);
       if(brick){
         if(!brick->isBroken()){
-          const RectangleInfo info = rectangle->getRectangleInfo();
-          const Point center = info.center;
-          const float w = info.w;
-          const float h = info.h;
-
-          ALLEGRO_COLOR frameColor = pickColorFromPalette(info.frameColor);
-          ALLEGRO_COLOR fillColor = pickColorFromPalette(info.fillColor);
-
-          const float x1 = center.x - w / 2;
-          const float x2 = center.x + w / 2;
-          const float y1 = center.y - h / 2;
-          const float y2 = center.y + h / 2;
-          al_draw_filled_rectangle(x1, y1, x2, y2, fillColor);
-          al_draw_rectangle(x1, y1, x2, y2, frameColor, 1);
+          draw(rectangle);
         }
       } else {
-        const RectangleInfo info = rectangle->getRectangleInfo();
-        const Point center = info.center;
-        const float w = info.w;
-        const float h = info.h;
-
-        ALLEGRO_COLOR frameColor = pickColorFromPalette(info.frameColor);
-        ALLEGRO_COLOR fillColor = pickColorFromPalette(info.fillColor);
-
-        const float x1 = center.x - w / 2;
-        const float x2 = center.x + w / 2;
-        const float y1 = center.y - h / 2;
-        const float y2 = center.y + h / 2;
-        al_draw_filled_rectangle(x1, y1, x2, y2, fillColor);
-        al_draw_rectangle(x1, y1, x2, y2, frameColor, 1);
+        draw(rectangle);
       }
     }
     shared_ptr<Circle> circle = dynamic_pointer_cast<Circle>(drawable);
     if(circle) {
-      const CircleInfo info = circle->getCircleInfo();
-      const Point center = info.center;
-      const float r = info.r;
-
-      ALLEGRO_COLOR frameColor = pickColorFromPalette(info.frameColor);
-      ALLEGRO_COLOR fillColor = pickColorFromPalette(info.fillColor);
-
-      al_draw_filled_circle(center.x, center.y, r, fillColor);
-      al_draw_circle(center.x, center.y, r, frameColor, 1);
+      draw(circle);
     }
 
   }
