@@ -5,10 +5,20 @@
 #include "view.hpp"
 
 
-View::View(Canvas& canvas)
+View::View(Canvas& canvas, ALLEGRO_FONT *font)
             : canvas_{canvas},
-            drawables_{canvas.getVectorOfDrawables()}
+            drawables_{canvas.getVectorOfDrawables()},
+            font{font}
             {}
+
+
+View& View::operator=(View&& other) noexcept{
+  if (this != &other) {
+    canvas_ = move(other.canvas_);
+    drawables_ = move(other.drawables_);
+  }
+  return *this;
+}
 
 
 
@@ -59,6 +69,21 @@ void View::draw(shared_ptr<Circle> circle){
   al_draw_circle(center.x, center.y, r, frameColor, 1);
 }
 
+
+void View::drawEndMessage(const string& message, const string& key){
+  ALLEGRO_COLOR textColor = pickColorFromPalette(FRAME_COLOR);
+  auto verticalCenterAdjustment =
+          static_cast<float>(al_get_font_line_height(font) / 2.0);
+  al_draw_text(font, textColor, endMessageX, endMessageY- verticalCenterAdjustment,
+               ALLEGRO_ALIGN_CENTRE, message.c_str());
+  al_draw_text(font, textColor, endMessageX, endMessageY + 25.0F - verticalCenterAdjustment,
+               ALLEGRO_ALIGN_CENTRE,
+               ("Score :" + to_string(canvas_.getScore())).c_str());
+  al_draw_text(font, textColor, endMessageX, endMessageY +50.0F- verticalCenterAdjustment,
+               ALLEGRO_ALIGN_CENTRE, ("press " + key +" to restart").c_str());
+}
+
+
 void View::draw(){
   canvas_.update();//todo
   for(const auto& drawable : drawables_){
@@ -77,6 +102,25 @@ void View::draw(){
     if(circle) {
       draw(circle);
     }
+  }
 
+
+
+  ALLEGRO_COLOR textColor = pickColorFromPalette(FRAME_COLOR);
+  auto verticalCenterAdjustment =
+          static_cast<float>(al_get_font_line_height(font) / 2.0);
+  al_draw_text(font, textColor, livesCountTextX, topTextAlignmentY- verticalCenterAdjustment,
+               ALLEGRO_ALIGN_CENTRE,
+               ("Extra Lives :"+to_string(canvas_.getExtraLivesNumber())).c_str());
+  al_draw_text(font, textColor, scoreCountX, topTextAlignmentY- verticalCenterAdjustment,
+               ALLEGRO_ALIGN_CENTRE,
+               ("Score :" + to_string(canvas_.getScore())).c_str());
+
+  if(canvas_.isGameOver()){
+    drawEndMessage("Game Over", "R");
+  }
+  if(canvas_.isGameWon()){
+    drawEndMessage("You Win !", "any");
   }
 }
+

@@ -5,16 +5,20 @@
 #include "racket.hpp"
 
 Racket::Racket(Point center, float w, float h, ModelColor frameColor,
-               ModelColor fillColor) :
+               ModelColor fillColor,
+               const float racketLeftLimit, const float racketRightLimit) :
         CollidableRectangle(center, w, h, frameColor,fillColor),
-        tempCenter{center}{}
+        tempCenter{center},
+        racketLeftLimit{racketLeftLimit},
+        racketRightLimit{racketRightLimit}
+{}
 
 void Racket::moveLeft() {
-  tempCenter.x = center_.x - movementSpeed;
+  center_.x = clamp(center_.x - movementSpeed, racketLeftLimit, racketRightLimit);
 }
 
 void Racket::moveRight() {
-  tempCenter.x = center_.x + movementSpeed;
+  center_.x = clamp(center_.x + movementSpeed, racketLeftLimit, racketRightLimit);
 }
 
 
@@ -33,3 +37,9 @@ void Racket::update() {
   center_ = tempCenter;
 }
 
+float Racket::getWidth(){
+  return w_;
+}
+float Racket::getHeight(){
+  return h_;
+}

@@ -30,26 +30,25 @@
 #include "point.hpp"
 #include "pointint.hpp"
 #include "clickable.hpp"
-#include "messagereceiver.hpp"
-#include "observer.hpp"
-#include "subject.hpp"
-#include "onclickmessagesender.hpp"
-#include "text.hpp"
+
+
+
+
 #include "constants.hpp"
 #include "rectangle.hpp"
 #include "racket.hpp"
 #include "circle.hpp"
 #include "bouncyball.hpp"
-#include "textrectangle.hpp"
-#include "intrectangle.hpp"
+
+
 #include "canvas.hpp"
 #include "view.hpp"
+#include "modelInteractions.hpp"
 
 using namespace std;
 
 
 
-// *****************DONT EDIT BELOW HERE************************
 
 void must_init(bool test, const char *description) {
   if (test) {
@@ -85,8 +84,8 @@ int main(int /* argc */, char ** /* argv */) {
   must_init(disp, "display");
 
   must_init(al_init_ttf_addon(), "TTF addon");
-  // font = al_create_builtin_font();
-  font = al_load_ttf_font("SourceCodePro-Regular.ttf", FONT_SIZE, 0);
+
+  ALLEGRO_FONT *font = al_load_ttf_font("SourceCodePro-Regular.ttf", FONT_SIZE, 0);
   must_init(font, "font");
 
   must_init(al_init_primitives_addon(), "primitives");
@@ -99,11 +98,12 @@ int main(int /* argc */, char ** /* argv */) {
   bool          done = false;
   bool          draw = false;
   bool keyPressed[ALLEGRO_KEY_MAX] = {false};
+  bool anyKeyPressed = {false};
 
   ALLEGRO_EVENT event;
   Canvas        canvas;
 
-  View view{canvas};
+  View view{canvas, font};
 
   al_start_timer(timer);
   while (!done) {
@@ -113,13 +113,14 @@ int main(int /* argc */, char ** /* argv */) {
         case ALLEGRO_EVENT_KEY_DOWN:
           //https://www.allegro.cc/forums/thread/612907
           if (!keyPressed[event.keyboard.keycode]) {
-            //start = al_get_time ();
             keyPressed[event.keyboard.keycode] = true;
+            anyKeyPressed = true;
           }
-          //canvas.keyPressed(event.keyboard.keycode);
+
           break;
         case ALLEGRO_EVENT_KEY_UP:
           keyPressed[event.keyboard.keycode] = false; // Mark the key as released
+          anyKeyPressed = false;
           break;
         case ALLEGRO_EVENT_MOUSE_AXES:
           // We try to never leave implicit casts in the code. By making the
@@ -150,11 +151,21 @@ int main(int /* argc */, char ** /* argv */) {
     }
     if (draw) {
       draw = false;
-      if (keyPressed[ALLEGRO_KEY_Q]) {
-        canvas.keyPressed(ALLEGRO_KEY_Q);//todo regular integers
+      if (keyPressed[ALLEGRO_KEY_Q] or keyPressed[ALLEGRO_KEY_A]) {
+        canvas.keyPressed(MODEL_LEFT);
       }
-      if (keyPressed[ALLEGRO_KEY_D]) {
-        canvas.keyPressed(ALLEGRO_KEY_D);
+      if (keyPressed[ALLEGRO_KEY_D] or keyPressed[ALLEGRO_KEY_P]) {
+        canvas.keyPressed(MODEL_RIGHT);
+      }
+      if(canvas.isGameWon() and anyKeyPressed){
+        canvas = Canvas();
+
+        view = View{canvas, font};
+      }
+      if(canvas.isGameOver() and keyPressed[ALLEGRO_KEY_R]){
+        canvas = Canvas();
+
+        view = View{canvas, font};
       }
       al_start_timer(timer);
       al_clear_to_color(al_map_rgb(255, 255, 255));

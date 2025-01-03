@@ -15,6 +15,7 @@
 #include "modelcolor.hpp"
 #include "collidablerectangle.hpp"
 #include "brick.hpp"
+#include "modelInteractions.hpp"
 
 
 
@@ -40,15 +41,23 @@ class Canvas {
     vector<shared_ptr<Drawable> > drawables {};
     vector<shared_ptr<CollidableRectangle> > collidables {};
 
+    shared_ptr<Racket> racket;
+    shared_ptr<BouncyBall> ball;
+
 
 public:
     Canvas();
     void update();
-    void mouseClick(Point mouseLoc);
+    void mouseClick(Point mouseLoc){}
     void mouseMove(Point mouseMove){}
-    bool keyPressed(int keyCode);  // return True if the event was handled
+    bool keyPressed(ModelInteractions keyCode);  // return True if the event was handled
 
     [[nodiscard]] const vector<shared_ptr<Drawable>>& getVectorOfDrawables() const;
+
+    int getExtraLivesNumber();
+    int getScore();
+    bool isGameOver();
+    bool isGameWon();
 };
 
 #endif //ARKANOID_CANVAS_HPP

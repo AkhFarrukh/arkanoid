@@ -32,6 +32,12 @@ const int    windowHeight     = 600;
 const float  mid_x            = static_cast<float>(windowWidth) / 2.0F;
 const float  mid_y            = static_cast<float>(windowHeight) / 2.0F;
 
+const float gameSpeed = 8.0F;
+const float timeBeforeGameStart = 2.0F;
+
+const int   rows      = 14;
+const int   columns   = 8;
+
 
 
 const double refreshPerSecond = 60;
@@ -40,7 +46,7 @@ const double refreshPerSecond = 60;
 
 // Global that contains font size and the font itself
 const int     FONT_SIZE = 20;
-inline ALLEGRO_FONT *font; //todo
+
 
 
 #endif //ARKANOID_CONSTANTS_HPP

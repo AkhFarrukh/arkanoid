@@ -5,8 +5,7 @@
 #include "canvas.hpp"
 
 Canvas::Canvas(){
-  const int   rows      = 14;
-  const int   columns   = 8;
+
 
 
   const float windowMargin = 5.0F;
@@ -16,7 +15,7 @@ Canvas::Canvas(){
   const float playFieldHeight = windowHeight - 2.0F * windowMargin - 2.0F * playFieldOffsetY;
 
   const float margin    = 1.5F;
-  const float cell_sizeX = playFieldWidth / rows - margin; //todo camelcase
+  const float cell_sizeX = playFieldWidth / rows - margin;
   const float cell_sizeY = (playFieldHeight * (1.0F / 3.0F)) / columns - margin;
 
   const float offsetX    = cell_sizeX + margin;
@@ -34,7 +33,14 @@ Canvas::Canvas(){
   const float racketPosX = playFieldMidX;
   const float racketPosY = playFieldHeight;
 
+  const float racketLeftLimit = playFieldMidX - playFieldWidth / 2.0F + racketWidth /2.0F;
+  const float racketRightLimit = playFieldMidX + playFieldWidth / 2.0F - racketWidth /2.0F;
+
+
   const float ballRadius = racketHeight / 3.0F;
+
+  const float ballPosX = racketPosX + (racketWidth / 2.0F) / 3.0F ;
+  const float ballPosY = racketPosY - ballRadius - racketHeight / 2.0F + 1;
 
   shared_ptr<CollidableRectangle> playField = make_shared<CollidableRectangle>(
           Point{playFieldMidX,playFieldMidY}, playFieldWidth, playFieldHeight,
@@ -44,8 +50,10 @@ Canvas::Canvas(){
   drawables.push_back(playField);
   collidables.push_back(playField);
 
-  shared_ptr<Racket> racket = make_shared<Racket>(
-          Point{racketPosX,racketPosY}, racketWidth, racketHeight, FRAME_COLOR, RACKET_COLOR);
+  racket = make_shared<Racket>(
+          Point{racketPosX,racketPosY}, racketWidth, racketHeight,
+          FRAME_COLOR, RACKET_COLOR,
+          racketLeftLimit, racketRightLimit);
   drawables.push_back(racket);
   collidables.push_back(racket);
 
@@ -67,16 +75,25 @@ Canvas::Canvas(){
     }
   }
   //shared_ptr<Racket> racket = dynamic_pointer_cast<Racket>(drawables[0]);
-  shared_ptr<BouncyBall> ball =make_shared<BouncyBall>(
-          Point{mid_x+10,mid_y}, ballRadius, FRAME_COLOR, BALL_COLOR, collidables);
+  ball =make_shared<BouncyBall>(
+          Point{ballPosX,ballPosY}, ballRadius, FRAME_COLOR, BALL_COLOR, collidables);
   drawables.push_back(ball);
+
 }
 
 void Canvas::update() {
-  shared_ptr<BouncyBall> ball = dynamic_pointer_cast<BouncyBall>(drawables.back());
-  shared_ptr<Racket> racket = dynamic_pointer_cast<Racket>(drawables[1]);
+  //shared_ptr<BouncyBall> ball = dynamic_pointer_cast<BouncyBall>(drawables.back());
+  //shared_ptr<Racket> racket = dynamic_pointer_cast<Racket>(drawables[1]);
   ball->update();
-  racket->update();
+  //racket->update();
+}
+
+int Canvas::getExtraLivesNumber(){
+  int lives =ball->getExtraLivesNumber();
+  if(lives <0){
+    return 0;
+  }
+  return ball->getExtraLivesNumber();
 }
 
 const vector<shared_ptr<Drawable>>& Canvas::getVectorOfDrawables() const{
@@ -84,20 +101,37 @@ const vector<shared_ptr<Drawable>>& Canvas::getVectorOfDrawables() const{
   return drawables;
 }
 
-void Canvas::mouseClick(Point mouseLoc) {
-}
 
-bool Canvas::keyPressed(int keyCode) {
-  shared_ptr<Racket> racket = dynamic_pointer_cast<Racket>(drawables[1]);
+bool Canvas::keyPressed(ModelInteractions keyCode) {
   switch (keyCode) {
-    case ALLEGRO_KEY_Q:
-      racket->moveLeft();
+    case MODEL_LEFT:{
+      if(!ball->isGameOver()){
+        racket->moveLeft();
+        ball->moveWithRacket();
+      }
       break;
-    case ALLEGRO_KEY_D:
-      racket->moveRight();
-      break;
+    }
+    case MODEL_RIGHT:{
+      if (!ball->isGameOver()){
+        racket->moveRight();
+        ball->moveWithRacket();
+        break;
+      }
+    }
     default: {
     }  // pass (normal)
   }
   return true;
+}
+
+int Canvas::getScore() {
+  return ball->getScore();
+}
+
+bool Canvas::isGameOver() {
+  return  ball->isGameOver();
+}
+
+bool Canvas::isGameWon() {
+  return  ball->isGameWon();
 }

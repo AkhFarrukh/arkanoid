@@ -8,12 +8,26 @@
 
 
 
+shared_ptr<Racket> BouncyBall::findRacket() {
+  for (auto &collidable: collidables_) {
+    shared_ptr<Racket> racketPtr = dynamic_pointer_cast<Racket>(collidable);
+    if(racketPtr){
+      return racketPtr;
+    }
+  }
+}
+
 BouncyBall::BouncyBall(Point center, float r, ModelColor frameColor,
                        ModelColor fillColor,
                        vector<shared_ptr<CollidableRectangle>>& collidables) noexcept :
         Circle{center, r, frameColor, fillColor},
-        collidables_{collidables}
-{}
+        collidables_{collidables},
+        initialBallPosY{center.y}
+{
+  racket = findRacket();
+  gameOver = false;
+  gameWon = false;
+}
 
 
 void BouncyBall::inverseXSpeed(){
@@ -72,23 +86,108 @@ void BouncyBall::collideWithEdge(shared_ptr<CollidableRectangle> collidable, Poi
 
 }
 
-void BouncyBall::update() {
-  Point center = getCenter();
+void BouncyBall::startGame(){
+  gameGoing = true;
+}
 
- //TODO use clamp before changing velocity
+bool BouncyBall::isGameOver(){
+  return gameOver;
+};
+
+bool BouncyBall::isGameWon(){
+  return  gameWon;
+}
+
+void BouncyBall::stopGame(){
+  gameGoing = false;
+  racketStartedMoving = false;
+  framesToStartCounter = timeBeforeGameStart * refreshPerSecond;
+  extraLivesNumber--;
+  if (getExtraLivesNumber() < 0){
+    gameOver = true;
+  }
+}
+
+int BouncyBall::getExtraLivesNumber(){
+  return extraLivesNumber;
+}
+
+bool BouncyBall::isGameGoing(){
+  return gameGoing;
+}
+
+void BouncyBall::countDownFrame(){
+  if(racketStartedMoving){
+    framesToStartCounter--;
+  }
+  if(framesToStartCounter <= 0){
+    startGame();
+  }
+}
+
+void BouncyBall::moveWithRacket() {
+  racketStartedMoving = true;
+  if(!isGameGoing()){
+    Point racketCenter = racket->getCenter();
+    Point center;
+    center.x= racketCenter.x  + (racket->getWidth() / 2.0F) / 3.0F;
+    center.y = initialBallPosY;
+    setCenter(center);
+  }
+}
+
+int BouncyBall::getScore() {
+  return score;
+}
+
+bool BouncyBall::isBallLost(Point center){
+  if(center.y >= racket->getCenter().y + racket->getHeight()){
+    return true;
+  }
+  return false;
+}
+
+int BouncyBall::getNumberOfBrokenBricks(){
+  int count = 0;
   for (auto &collidable : collidables_){
-    if(collidable->isCollidingWithCircle(center, r_)){
-      collideWithEdge(collidable, center);
+    shared_ptr<Brick> brick = dynamic_pointer_cast<Brick>(collidable);
+    if(brick and brick->isBroken()){
+      count++;
     }
   }
+  return count;
+}
 
-  if (Circle::contains(Point{center.x, windowHeight- 5})){
-    //todo change to fully submerge the ball under the screen
-    center.y = mid_y;
+void BouncyBall::update() {
+  if(isGameGoing()){
+    Point center = getCenter();
+    //TODO use clamp before changing velocity
+    for (auto &collidable : collidables_){
+      if(collidable->isCollidingWithCircle(center, r_)){
+        collideWithEdge(collidable, center);
+      }
+    }
+
+    score = getNumberOfBrokenBricks();
+
+    if(score == rows*columns){
+      gameWon = true;
+      stopGame();
+      return;
+    }
+
+    if (isBallLost(center)){
+      stopGame();
+
+
+    } else{
+      center.x = center.x + horizontalSpeed;
+      center.y = center.y + verticalSpeed;
+      setCenter(center);
+    }
+
+
+  } else{
+    countDownFrame();
   }
-
-  center.x = center.x + horizontalSpeed;
-  center.y = center.y + verticalSpeed;
-
-  setCenter(center);
 }
