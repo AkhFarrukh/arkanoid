@@ -1,6 +1,3 @@
-//
-// Created by farrukh on 31/12/24.
-//
 
 #include "circle.hpp"
 

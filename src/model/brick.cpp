@@ -1,6 +1,3 @@
-//
-// Created by farrukh on 2/01/25.
-//
 
 #include "brick.hpp"
 
