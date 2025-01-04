@@ -24,18 +24,15 @@ protected:
     Point         center_;
     float         r_;
     ModelColor frameColor_, fillColor_;
-
 public:
-
     Circle(Point center, float r, ModelColor frameColor = FRAME_COLOR,
            ModelColor fillColor = DEFAULT_COLOR) noexcept;
     void                setFillColor(ModelColor newFillColor);
     void                setFrameColor(ModelColor newFrameColor);
     [[nodiscard]] bool  contains(Point point) const override;
-
     [[nodiscard]] Point getCenter() const;
     void                setCenter(Point newCenter);
-    [[nodiscard]] CircleInfo getCircleInfo() const;
+    [[nodiscard]] CircleInfo getCircleInfo() const; //returns all the information to draw the circle
 };
 
 #endif //ARKANOID_CIRCLE_HPP

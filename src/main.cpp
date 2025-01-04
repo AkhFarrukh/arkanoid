@@ -28,8 +28,8 @@
 
 #include "drawable.hpp"
 #include "point.hpp"
-#include "pointint.hpp"
-#include "clickable.hpp"
+
+
 
 
 
@@ -116,27 +116,10 @@ int main(int /* argc */, char ** /* argv */) {
             keyPressed[event.keyboard.keycode] = true;
             anyKeyPressed = true;
           }
-
           break;
         case ALLEGRO_EVENT_KEY_UP:
           keyPressed[event.keyboard.keycode] = false; // Mark the key as released
           anyKeyPressed = false;
-          break;
-        case ALLEGRO_EVENT_MOUSE_AXES:
-          // We try to never leave implicit casts in the code. By making the
-          // cast explicit, we show that this is indeed our will, and that we
-          // are aware of the loss of precision that occurs at this moment.
-          canvas.mouseMove({static_cast<float>(event.mouse.x),
-                            static_cast<float>(event.mouse.y)});
-          // Another approach would be to create a constructor for the Point
-          // structure that accepts integers and does the explicit casting at
-          // that time. This would make the code easier to read. We didn't do
-          // this to keep the part of the code you need to understand and modify
-          // simpler.
-          break;
-        case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
-          canvas.mouseClick({static_cast<float>(event.mouse.x),
-                             static_cast<float>(event.mouse.y)});
           break;
         case ALLEGRO_EVENT_DISPLAY_CLOSE:
           done = true;
@@ -157,14 +140,8 @@ int main(int /* argc */, char ** /* argv */) {
       if (keyPressed[ALLEGRO_KEY_D] or keyPressed[ALLEGRO_KEY_P]) {
         canvas.keyPressed(MODEL_RIGHT);
       }
-      if(canvas.isGameWon() and anyKeyPressed){
+      if((canvas.isGameWon() and anyKeyPressed) or (canvas.isGameOver() and keyPressed[ALLEGRO_KEY_R])){
         canvas = Canvas();
-
-        view = View{canvas, font};
-      }
-      if(canvas.isGameOver() and keyPressed[ALLEGRO_KEY_R]){
-        canvas = Canvas();
-
         view = View{canvas, font};
       }
       al_start_timer(timer);

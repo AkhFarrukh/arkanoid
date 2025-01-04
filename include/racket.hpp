@@ -18,24 +18,20 @@ using namespace std;
 
 /*--------------------------------------------------
 Racket class
+ Racket that can be moved on a horizontal axis with a constant speed in a range between defined limitations.
 --------------------------------------------------*/
 class Racket : public CollidableRectangle{
     const float movementSpeed = gameSpeed;
-    Point tempCenter;
     const float racketLeftLimit;
     const float racketRightLimit;
 
 public:
     Racket(Point center, float w, float h, ModelColor frameColor,
            ModelColor fillColor, const float racketLeftLimit, const float racketRightLimit);
-
-    void update();
     void moveLeft();
     void moveRight();
-    float getAngle(Point collisionPoint);
-
+    float getAngle(Point collisionPoint); //returns an angle of reflection based on collision position.
     float getWidth();
-
     float getHeight();
 };
 

@@ -161,7 +161,6 @@ int BouncyBall::getNumberOfBrokenBricks(){
 void BouncyBall::update() {
   if(isGameGoing()){
     Point center = getCenter();
-    //TODO use clamp before changing velocity
     for (auto &collidable : collidables_){
       if(collidable->isCollidingWithCircle(center, r_)){
         collideWithEdge(collidable, center);

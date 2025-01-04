@@ -7,9 +7,7 @@
 
 #include "point.hpp"
 
-struct DrawableInfo{
 
-};
 
 /*--------------------------------------------------
 Drawable class.
@@ -24,7 +22,6 @@ protected:
 
 public:
     virtual bool contains(Point p) const = 0;
-
     virtual ~Drawable()                 = default;
 };
 

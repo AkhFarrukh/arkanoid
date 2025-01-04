@@ -12,27 +12,20 @@
 #include "modelcolor.hpp"
 
 using namespace std;
-/*--------------------------------------------------
-Rectangle class.
 
-Use to display a filled-in rectangle on the screen
-with different colors for the fill and the border
---------------------------------------------------*/
-/*--------------------------------------------------
-Rectangle class.
-
-Use to display a filled-in rectangle on the screen
-with different colors for the fill and the border
-
-It should have all the features you need and you
-should not need to edit it.
---------------------------------------------------*/
 
 struct RectangleInfo{
     Point center;
     float         w, h;
     ModelColor frameColor, fillColor;
 };
+
+/*--------------------------------------------------
+Rectangle class.
+
+Use to display a filled-in rectangle on the screen
+with different colors for the fill and the border
+--------------------------------------------------*/
 
 class Rectangle : public virtual Drawable {
 protected:
@@ -41,7 +34,6 @@ protected:
     ModelColor frameColor_, fillColor_;
 
 public:
-
     Rectangle(Point center, float w, float h,
               ModelColor frameColor = FRAME_COLOR,
               ModelColor fillColor  = DEFAULT_COLOR) noexcept;
@@ -50,7 +42,6 @@ public:
     void                setFrameColor(ModelColor newFrameColor);
     [[nodiscard]] bool  contains(Point point) const override;
     [[nodiscard]] Point getCenter() const;
-
-    [[nodiscard]] RectangleInfo getRectangleInfo() const;
+    [[nodiscard]] RectangleInfo getRectangleInfo() const; //returns a struct with all the information needed to draw this rectangle
 };
 #endif //ARKANOID_RECTANGLE_HPP

@@ -38,7 +38,7 @@ const float timeBeforeGameStart = 2.0F;
 const int   rows      = 14;
 const int   columns   = 8;
 
-
+const float bufferCollisionPrecision = 0.001;
 
 const double refreshPerSecond = 60;
 

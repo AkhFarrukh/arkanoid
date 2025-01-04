@@ -85,7 +85,7 @@ void View::drawEndMessage(const string& message, const string& key){
 
 
 void View::draw(){
-  canvas_.update();//todo
+  canvas_.update();
   for(const auto& drawable : drawables_){
     shared_ptr<Rectangle> rectangle = dynamic_pointer_cast<Rectangle>(drawable);
     if(rectangle){

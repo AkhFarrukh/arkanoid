@@ -48,8 +48,7 @@ class Canvas {
 public:
     Canvas();
     void update();
-    void mouseClick(Point mouseLoc){}
-    void mouseMove(Point mouseMove){}
+
     bool keyPressed(ModelInteractions keyCode);  // return True if the event was handled
 
     [[nodiscard]] const vector<shared_ptr<Drawable>>& getVectorOfDrawables() const;

@@ -20,12 +20,11 @@
 using namespace std;
 
 /*--------------------------------------------------------------
- *
+
+
+ https://www.youtube.com/watch?v=lpvH6MStSis&list=PLgLT8uqXESN84XNkhn7MT-HIi-BYzFWqZ&index=44
  --------------------------------------------------------------*/
 class BouncyBall : public virtual Circle{
-    /*
-     * https://www.youtube.com/watch?v=lpvH6MStSis&list=PLgLT8uqXESN84XNkhn7MT-HIi-BYzFWqZ&index=44
-     */
 private:
     const float speed = gameSpeed;
     float horizontalSpeed = 0.0F *speed;
@@ -38,12 +37,10 @@ private:
     bool gameOver;
     int score = 0;
     bool gameWon;
-
-
     const float initialBallPosY;
-
     vector<shared_ptr<CollidableRectangle>> collidables_;
     shared_ptr<Racket> racket;
+
 
 public:
     BouncyBall(Point center, float r, ModelColor frameColor, ModelColor fillColor,
@@ -51,18 +48,17 @@ public:
 
     void update() ;
 
-    void collideWithEdge(shared_ptr<CollidableRectangle> collidable, Point center);
 
     void inverseXSpeed();
-
     void inverseYSpeed();
-
+    int getNumberOfBrokenBricks();
+    void collideWithEdge(shared_ptr<CollidableRectangle> collidable, Point center);
     void changeSpeedBasedOnRacketAngle(shared_ptr<Racket> racket, Point center);
-
     void defaultCollide(CollisionType edge);
+    void racketCollide(CollisionType edge, shared_ptr<Racket> racket, Point center);
 
-    void
-    racketCollide(CollisionType edge, shared_ptr<Racket> racket, Point center);
+
+
 
     void startGame();
 
@@ -84,11 +80,9 @@ public:
 
     bool isGameWon();
 
-    int getNumberOfBrokenBricks();
+
 
     int getScore();
-
-    void resetCollidables(vector<shared_ptr<CollidableRectangle>> &collidables);
 };
 
 #endif //ARKANOID_BOUNCYBALL_HPP

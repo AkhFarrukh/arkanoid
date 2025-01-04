@@ -8,7 +8,6 @@ Racket::Racket(Point center, float w, float h, ModelColor frameColor,
                ModelColor fillColor,
                const float racketLeftLimit, const float racketRightLimit) :
         CollidableRectangle(center, w, h, frameColor,fillColor),
-        tempCenter{center},
         racketLeftLimit{racketLeftLimit},
         racketRightLimit{racketRightLimit}
 {}
@@ -33,9 +32,6 @@ float Racket::getAngle(Point collisionPoint) {
   return alpha;
 }
 
-void Racket::update() {
-  center_ = tempCenter;
-}
 
 float Racket::getWidth(){
   return w_;

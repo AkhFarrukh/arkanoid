@@ -14,16 +14,18 @@
 #include "collidablerectangle.hpp"
 
 using namespace std;
+/*------------------------------------------------------------------------
+  Brick.
+  This is a class for bricks that can be broken by colliding with a circle
+ ------------------------------------------------------------------------*/
 class Brick : public CollidableRectangle{
   bool broken = false;
 public:
-    Brick(Point center, float w, float h, ModelColor frameColor,
-      ModelColor fillColor);
-
+    Brick(Point center, float w, float h, ModelColor frameColor, ModelColor fillColor);
     bool isBroken();
-    void brakeBrick();
+    void brakeBrick(); // sets broken to true
     bool isCollidingWithCircle(Point centerCircle, float r);
-
+    //Brakes on collision, and if already broken returns false to allow ball pass through it
 };
 
 
