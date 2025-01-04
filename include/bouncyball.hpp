@@ -1,6 +1,4 @@
-//
-// Created by farrukh on 31/12/24.
-//
+
 
 #ifndef ARKANOID_BOUNCYBALL_HPP
 #define ARKANOID_BOUNCYBALL_HPP
@@ -20,7 +18,11 @@
 using namespace std;
 
 /*--------------------------------------------------------------
-
+This class inherits from Circle. It is responsible not only for the behavior of the ball but also for core game
+mechanics. It maintains a vector of pointers to all objects of the CollidableRectangle type. In each frame, the
+method update() is called by the Canvas to move the ball, check for collisions with each CollidableRectangle
+object, and handle them accordingly. Additionally, it manages the score, the number of remaining lives, and the
+overall state of the game. BouncyBall can also determine whether the game has been won or lost.
 
   Bouncing from walls and bricks code is taken from this video:
  https://www.youtube.com/watch?v=lpvH6MStSis&list=PLgLT8uqXESN84XNkhn7MT-HIi-BYzFWqZ&index=44

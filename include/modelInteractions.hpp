@@ -1,6 +1,3 @@
-//
-// Created by farrukh on 1/01/25.
-//
 
 #ifndef ARKANOID_MODELINTERACTIONS_HPP
 #define ARKANOID_MODELINTERACTIONS_HPP

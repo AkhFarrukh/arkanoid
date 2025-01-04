@@ -1,6 +1,4 @@
-//
-// Created by farrukh on 31/12/24.
-//
+
 
 #ifndef ARKANOID_RACKET_HPP
 #define ARKANOID_RACKET_HPP

@@ -14,41 +14,17 @@
 #include <allegro5/timer.h>
 #include <allegro5/transformations.h>
 
-#include <algorithm>
-#include <cmath>
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
-#include <memory>
-#include <numbers>
-#include <ranges>
-#include <string>
-#include <vector>
-
-
-#include "drawable.hpp"
-#include "point.hpp"
-
-
-
-
 
 
 #include "constants.hpp"
-#include "rectangle.hpp"
-#include "racket.hpp"
-#include "circle.hpp"
-#include "bouncyball.hpp"
-
-
 #include "canvas.hpp"
 #include "view.hpp"
 #include "modelInteractions.hpp"
 
 using namespace std;
-
-
-
 
 void must_init(bool test, const char *description) {
   if (test) {
@@ -99,10 +75,9 @@ int main(int /* argc */, char ** /* argv */) {
   bool          draw = false;
   bool keyPressed[ALLEGRO_KEY_MAX] = {false};
   bool anyKeyPressed = {false};
-
   ALLEGRO_EVENT event;
-  Canvas        canvas;
 
+  Canvas        canvas;
   View view{canvas, font};
 
   al_start_timer(timer);

@@ -1,6 +1,4 @@
-//
-// Created by farrukh on 1/01/25.
-//
+
 
 #ifndef ARKANOID_MODELCOLOR_HPP
 #define ARKANOID_MODELCOLOR_HPP

@@ -1,13 +1,7 @@
-//
-// Created by farrukh on 31/12/24.
-//
 
 #include "canvas.hpp"
 
 Canvas::Canvas(){
-
-
-
   const float windowMargin = 5.0F;
   const float playFieldOffsetY = 20.0F;
 
@@ -36,7 +30,6 @@ Canvas::Canvas(){
   const float racketLeftLimit = playFieldMidX - playFieldWidth / 2.0F + racketWidth /2.0F;
   const float racketRightLimit = playFieldMidX + playFieldWidth / 2.0F - racketWidth /2.0F;
 
-
   const float ballRadius = racketHeight / 3.0F;
 
   const float ballPosX = racketPosX + (racketWidth / 2.0F) / 3.0F ;
@@ -58,12 +51,8 @@ Canvas::Canvas(){
   collidables.push_back(racket);
 
 
-  for (const int y : views::iota(0, columns)) { //itoa is like range in python
+  for (const int y : views::iota(0, columns)) {
     for (const int x : views::iota(0, rows)) {
-      // emplace_back is like push_back but is used to construct a new
-      // object directly in the vector. It avoids constructing and then
-      // copying. You pass the parameters of the constructor directly
-      // to emplace_back
       shared_ptr<Brick> brick = make_shared<Brick>(
               Point{startX + offsetX * static_cast<float>(x) + offsetX / 2,
                     startY + offsetY * static_cast<float>(y) + offsetY / 2},
@@ -74,7 +63,6 @@ Canvas::Canvas(){
       collidables.push_back(brick);
     }
   }
-  //shared_ptr<Racket> racket = dynamic_pointer_cast<Racket>(drawables[0]);
   ball =make_shared<BouncyBall>(
           Point{ballPosX,ballPosY}, ballRadius, FRAME_COLOR, BALL_COLOR, collidables);
   drawables.push_back(ball);
@@ -82,10 +70,7 @@ Canvas::Canvas(){
 }
 
 void Canvas::update() {
-  //shared_ptr<BouncyBall> ball = dynamic_pointer_cast<BouncyBall>(drawables.back());
-  //shared_ptr<Racket> racket = dynamic_pointer_cast<Racket>(drawables[1]);
   ball->update();
-  //racket->update();
 }
 
 int Canvas::getExtraLivesNumber(){
@@ -97,7 +82,6 @@ int Canvas::getExtraLivesNumber(){
 }
 
 const vector<shared_ptr<Drawable>>& Canvas::getVectorOfDrawables() const{
-  // constant reference
   return drawables;
 }
 

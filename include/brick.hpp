@@ -1,6 +1,4 @@
-//
-// Created by farrukh on 2/01/25.
-//
+
 
 #ifndef ARKANOID_BRICK_HPP
 #define ARKANOID_BRICK_HPP

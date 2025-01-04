@@ -1,6 +1,4 @@
-//
-// Created by farrukh on 31/12/24.
-//
+
 
 #ifndef ARKANOID_VIEW_HPP
 #define ARKANOID_VIEW_HPP
@@ -25,29 +23,20 @@ const ALLEGRO_COLOR COLOR_BLUE    = al_map_rgb(0, 0, 255);
 class View {
   Canvas canvas_;
   vector<shared_ptr<Drawable>> drawables_ {};
-
   const float topTextAlignmentY = 10.0F;
   const float livesCountTextX = windowWidth - 100.0f;
   const float scoreCountX = 100.0F;
-
   const float endMessageX = windowWidth /2.0F;
   const float endMessageY = windowHeight /2.0F;
   ALLEGRO_FONT *font;
-
   ALLEGRO_COLOR pickColorFromPalette(ModelColor modelColor);
+  void draw(shared_ptr<Rectangle> rectangle);
+  void draw(shared_ptr<Circle> circle);
+  void drawEndMessage(const string& message, const string& key);
 public:
   View(Canvas& canvas, ALLEGRO_FONT *font);
-
-
   View& operator=(View&& other) noexcept;
-
-  void draw();
-
-    void draw(shared_ptr<Rectangle> rectangle);
-
-    void draw(shared_ptr<Circle> circle);
-
-    void drawEndMessage(const string& message, const string& key);
+  void draw(); //called each frame by main
 };
 
 
