@@ -31,5 +31,3 @@ Point Rectangle::getCenter() const { return center_; }
 RectangleInfo Rectangle::getRectangleInfo() const{
   return RectangleInfo{center_,w_,h_, frameColor_, fillColor_};
 }
-
-//void Rectangle::update() {}
