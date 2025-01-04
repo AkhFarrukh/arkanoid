@@ -33,7 +33,7 @@ const float  mid_x            = static_cast<float>(windowWidth) / 2.0F;
 const float  mid_y            = static_cast<float>(windowHeight) / 2.0F;
 
 const float gameSpeed = 8.0F;
-const float timeBeforeGameStart = 2.0F;
+const float timeBeforeGameStart = 2.0F;//seconds
 
 const int   rows      = 14;
 const int   columns   = 8;
