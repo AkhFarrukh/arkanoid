@@ -36,6 +36,7 @@ public:
             ModelColor fillColor);
     virtual bool isCollidingWithCircle(Point centerCircle, float r) ;   //check,if there was a collision with a circle of given center and radius
     CollisionType getCollidingEdgeType(Point center, float r);          //returns the side on which the collision took place
+    virtual ~CollidableRectangle(){}
 };
 
 
