@@ -1,0 +1,11 @@
+# ninja log v5
+5	946	1795020361678036758	CMakeFiles/arkanoid.dir/src/view/view.cpp.o	3a3f3c3d46fba292
+2	888	1795020361618036780	CMakeFiles/arkanoid.dir/src/model/canvas.cpp.o	b509e865f5d84dce
+1	790	1795020361522036813	CMakeFiles/arkanoid.dir/src/model/bouncyball.cpp.o	78a7cccabc724a2f
+1	752	1795020361482036827	CMakeFiles/arkanoid.dir/src/main.cpp.o	f44a88d6d92f3102
+946	1034	1795020361766036729	arkanoid	772af4e0b61a66ed
+2	474	1795020361211478545	CMakeFiles/arkanoid.dir/src/model/brick.cpp.o	27607318e2f7bbd
+4	330	1795020361062036972	CMakeFiles/arkanoid.dir/src/model/racket.cpp.o	445b47b30ba0bae6
+4	237	1795020360973745544	CMakeFiles/arkanoid.dir/src/model/collidablerectangle.cpp.o	d7133eb1b12e853c
+4	123	1795020360859500540	CMakeFiles/arkanoid.dir/src/model/rectangle.cpp.o	30d33b42bb4a936a
+3	122	1795020360859500540	CMakeFiles/arkanoid.dir/src/model/circle.cpp.o	d2c90ee6c1e42c39
